@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/form.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <div class="" id="main">
+          <div class="dc">
+            <input type="text" value="untitled value" />
+            <select class="selection" id="selection" onclick="select()">
+              <option value="radio">Radio</option>
+              <option value="dropdown">Dropdown</option>
+              <option value="checkbox">Checkbox</option>
+            </select>
+          </div>
+          <!-- <div id="add" class="add">
+            <div id="addbutton">
+              <input type="button" value="add" onclick="add()" />
+            </div>
+          </div> -->
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    let main = document.getElementById("main");
+    main.innerHTML += `<div id="add"></div>`;
+    function select() {
+      let { value } = document.querySelector("#selection");
+      let main = document.getElementById("main");
+      console.log(main);
+      main.innerHTML += `<div id="add" class="add">
+          <div id="addbutton">
+            <input type="button" value="add" onclick="add()" />
+          </div>
+        </div>`;
+
+      main.innerHTML += `<div><input type="${value}" name="${value}" id="${value}" disabled>
+        <input type="text" value="option1"></div>`;
+    }
+    function add() {
+      let { value } = document.querySelector("#selection");
+      let add = document.getElementById("add");
+      add.innerHTML += `<div><input type="${value}" name="${value}" id="${value}" disabled>
+        <input type="text" value="option1"></div>`;
+    }
+  </script>
+</html>

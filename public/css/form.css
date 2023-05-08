@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  text-align:center
+}
+input{
+  border: 0;
+  font-size: 25px;
+}
+form{
+  margin-top: 30px;
+}
+.dc{
+  display: contents;
+}
+.container{
+  width : 1170px
+}
+.selection{
+  width: 10rem;
+  height: 2rem;
+  border: hidden;
+}
+.add
+{
+  display: flex;
+  flex-direction: column;
+}
