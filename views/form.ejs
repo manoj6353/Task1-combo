@@ -19,29 +19,24 @@
               <option value="checkbox">Checkbox</option>
             </select>
           </div>
-          <!-- <div id="add" class="add">
-            <div id="addbutton">
-              <input type="button" value="add" onclick="add()" />
-            </div>
-          </div> -->
-        </div>
-      </form>
-    </div>
-  </body>
-  <script>
-    let main = document.getElementById("main");
-    main.innerHTML += `<div id="add"></div>`;
-    function select() {
-      let { value } = document.querySelector("#selection");
-      let main = document.getElementById("main");
-      console.log(main);
-      main.innerHTML += `<div id="add" class="add">
+          <div id="add" class="add"></div>
           <div id="addbutton">
             <input type="button" value="add" onclick="add()" />
           </div>
-        </div>`;
-
-      main.innerHTML += `<div><input type="${value}" name="${value}" id="${value}" disabled>
+        </div>
+      </form>
+    </div>
+    <div id="inner">
+      <button onclick="myFunction()">+</button>
+      <div id="showdata"></div>
+    </div>
+  </body>
+  <script>
+    function select() {
+      let { value } = document.querySelector("#selection");
+      let add = document.getElementById("add");
+      console.log(main);
+      add.innerHTML = `<div><input type="${value}" name="${value}" id="${value}" disabled>
         <input type="text" value="option1"></div>`;
     }
     function add() {
@@ -49,6 +44,19 @@
       let add = document.getElementById("add");
       add.innerHTML += `<div><input type="${value}" name="${value}" id="${value}" disabled>
         <input type="text" value="option1"></div>`;
+    }
+
+    // function dataAdd() {
+    // let { value } = document.querySelector("#selection");
+    // let data = document.getElementById("showdata");
+    // data.innerHTML += `<div><input type="${value}" name="${value}" id="${value}" disabled>
+    //   <input type="text" value="option1"></div>`;
+    // }
+
+    function myFunction() {
+      const node = document.getElementById("main");
+      const clone = node.cloneNode(true);
+      document.getElementById("showdata").appendChild(clone);
     }
   </script>
 </html>
