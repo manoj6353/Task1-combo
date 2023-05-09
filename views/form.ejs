@@ -44,7 +44,7 @@
     function loading() {
       let adds = document.getElementById("add");
       let selection = document.getElementById("selection");
-      adds.setAttribute("id", `selection${ids}`);
+      selection.setAttribute("id", `selection${ids}`);
       adds.setAttribute("id", `add${ids}`);
     }
     let ids = 1;
@@ -56,7 +56,7 @@
       let add = document.getElementById(`add${ids}`);
       if (value != "select") {
         data.innerHTML = `<div><input type="${value}" name="${value}" id="${value}" disabled>
-        <input type="text" value="option" name="${add}"><a onclick="remove(this)">Remove</a></div>`;
+        <input type="text" value="option" name="${data.id}"><a onclick="remove(this)">Remove</a></div>`;
       }
     }
     function add(idget) {
@@ -67,7 +67,7 @@
       let add = document.getElementById(`add${ids}`);
       if (value != "select") {
         let html = `<div><input type="${value}" name="${value}" id="${value}" disabled>
-        <input type="text" value="option" name="${add}"><a onclick="remove(this)">Remove</a></div>`;
+        <input type="text" value="option" name="${data.id}"><a onclick="remove(this)">Remove</a></div>`;
         data.insertAdjacentHTML("beforeend", html);
       }
     }
@@ -80,10 +80,10 @@
       let add = document.getElementById("showdata");
       add.innerHTML += `<div class="" id="main">
           <div class="dc">
-            <input type="text" value="untitled value" name="select${id}" />
+            <input type="text" value="untitled value" name="select" />
             <select
               class="selection"
-              name="combo${id}"
+              name="combo"
               id="selection"
               onclick="generate(this)"
             >
@@ -102,7 +102,7 @@
       let selection = document.getElementById("selection");
       ids++;
       adds.setAttribute("id", `add${ids}`);
-      adds.setAttribute("id", `selection${ids}`);
+      selection.setAttribute("id", `selection${ids}`);
     }
   </script>
 </html>

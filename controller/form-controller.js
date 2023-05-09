@@ -12,7 +12,7 @@ const formcreate = async (req, res) => {
 const save = async (req, res) => {
   try {
     const { body } = req;
-    console.log(body);
+    console.log("------------", body);
     // const data = await form.insert(body);
     // res.send(data);
   } catch (err) {
