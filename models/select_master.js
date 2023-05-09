@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   select_master.init(
     {
       select_name: DataTypes.STRING,
+      type: DataTypes.STRING,
       key: DataTypes.INTEGER,
     },
     {

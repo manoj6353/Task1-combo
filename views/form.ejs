@@ -7,56 +7,102 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/form.css" />
   </head>
-  <body>
+  <body onload="loading()">
     <div class="container">
-      <form>
+      <form action="/save" method="POST">
         <div class="" id="main">
           <div class="dc">
-            <input type="text" value="untitled value" />
-            <select class="selection" id="selection" onclick="select()">
+            <input type="text" value="untitled value" name="select" />
+            <select
+              class="selection"
+              name="combo"
+              id="selection"
+              onclick="generate(this)"
+            >
+              <option value="select">Select</option>
               <option value="radio">Radio</option>
               <option value="dropdown">Dropdown</option>
               <option value="checkbox">Checkbox</option>
             </select>
           </div>
-          <div id="add" class="add"></div>
           <div id="addbutton">
-            <input type="button" value="add" onclick="add()" />
+            <input type="button" value="add" onclick="add(this)" />
           </div>
+          <div id="add" class="add"></div>
+        </div>
+        <div id="showdata"></div>
+        <div class="submit">
+          <input type="submit" value="submit" />
         </div>
       </form>
     </div>
     <div id="inner">
-      <button onclick="myFunction()">+</button>
-      <div id="showdata"></div>
+      <input type="button" value="+" onclick="myFunction()" />
     </div>
   </body>
   <script>
-    function select() {
-      let { value } = document.querySelector("#selection");
-      let add = document.getElementById("add");
-      console.log(main);
-      add.innerHTML = `<div><input type="${value}" name="${value}" id="${value}" disabled>
-        <input type="text" value="option1"></div>`;
+    function loading() {
+      let adds = document.getElementById("add");
+      let selection = document.getElementById("selection");
+      adds.setAttribute("id", `selection${ids}`);
+      adds.setAttribute("id", `add${ids}`);
     }
-    function add() {
-      let { value } = document.querySelector("#selection");
-      let add = document.getElementById("add");
-      add.innerHTML += `<div><input type="${value}" name="${value}" id="${value}" disabled>
-        <input type="text" value="option1"></div>`;
+    let ids = 1;
+    function generate(idget) {
+      let data;
+      let value;
+      data = idget.parentNode.parentNode.childNodes[5];
+      value = idget.parentNode.parentNode.childNodes[1].childNodes[3].value;
+      let add = document.getElementById(`add${ids}`);
+      if (value != "select") {
+        data.innerHTML = `<div><input type="${value}" name="${value}" id="${value}" disabled>
+        <input type="text" value="option" name="${add}"><a onclick="remove(this)">Remove</a></div>`;
+      }
     }
-
-    // function dataAdd() {
-    // let { value } = document.querySelector("#selection");
-    // let data = document.getElementById("showdata");
-    // data.innerHTML += `<div><input type="${value}" name="${value}" id="${value}" disabled>
-    //   <input type="text" value="option1"></div>`;
-    // }
+    function add(idget) {
+      let data;
+      let value;
+      data = idget.parentNode.parentNode.childNodes[5];
+      value = idget.parentNode.parentNode.childNodes[1].childNodes[3].value;
+      let add = document.getElementById(`add${ids}`);
+      if (value != "select") {
+        let html = `<div><input type="${value}" name="${value}" id="${value}" disabled>
+        <input type="text" value="option" name="${add}"><a onclick="remove(this)">Remove</a></div>`;
+        data.insertAdjacentHTML("beforeend", html);
+      }
+    }
+    function remove(current) {
+      current.parentNode.innerHTML = "";
+    }
 
     function myFunction() {
-      const node = document.getElementById("main");
-      const clone = node.cloneNode(true);
-      document.getElementById("showdata").appendChild(clone);
+      let id = 1;
+      let add = document.getElementById("showdata");
+      add.innerHTML += `<div class="" id="main">
+          <div class="dc">
+            <input type="text" value="untitled value" name="select${id}" />
+            <select
+              class="selection"
+              name="combo${id}"
+              id="selection"
+              onclick="generate(this)"
+            >
+              <option value="select">Select</option>
+              <option value="radio">Radio</option>
+              <option value="dropdown">Dropdown</option>
+              <option value="checkbox">Checkbox</option>
+            </select>
+          </div>
+          <div id="addbutton">
+            <input type="button" value="add" onclick="add(this)" />
+          </div>
+          <div id="add" class="add"></div>
+        </div>`;
+      let adds = document.getElementById("add");
+      let selection = document.getElementById("selection");
+      ids++;
+      adds.setAttribute("id", `add${ids}`);
+      adds.setAttribute("id", `selection${ids}`);
     }
   </script>
 </html>

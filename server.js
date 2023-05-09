@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "./public")));
-app.set("views", path.join(__dirname, "/views"));
+// app.set("views", path.join(__dirname, "/views"));
 const port = 8000;
 
 const router = require("./routes/route");

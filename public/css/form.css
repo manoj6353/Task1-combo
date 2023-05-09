@@ -23,9 +23,27 @@ form{
   width: 10rem;
   height: 2rem;
   border: hidden;
+  padding: 8px;
+  border-radius: 10px;
 }
 .add
 {
   display: flex;
   flex-direction: column;
+}
+.submit{
+  margin-top: 15px;
+}
+.submit input{
+  padding: 8px;
+  border-radius: 10px;
+}
+
+#addbutton input{
+  margin-top: 20px;
+  padding: 8px;
+  border-radius: 10px;
+}
+#showdata{
+  margin-top: 25px;
 }

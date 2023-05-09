@@ -12,6 +12,9 @@ module.exports = {
       select_name: {
         type: Sequelize.STRING,
       },
+      type: {
+        type: Sequelize.STRING,
+      },
       key: {
         type: Sequelize.INTEGER,
       },
