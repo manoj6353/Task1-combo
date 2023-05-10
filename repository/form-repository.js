@@ -56,6 +56,9 @@ form.insert = async (body) => {
         select = body.select[i];
         combo = body.combo[i];
         var { schema, Schema } = stringvalidation(select, combo, add);
+        if (schema.error && Schema.error) {
+          return schema;
+        }
       }
       if (schema.error && Schema.error) {
         return schema;
@@ -69,17 +72,28 @@ form.insert = async (body) => {
             { transaction: t }
           );
           datas = [];
-          for (let j = 0; j < body.add[i].length; j++) {
-            const insert = {
-              option_name: body.add[i][j],
-              select_id: data.id,
-            };
-            datas.push(insert);
+          if (typeof body.add[i] != "string") {
+            for (let j = 0; j < body.add[i].length; j++) {
+              const insert = {
+                option_name: body.add[i][j],
+                select_id: data.id,
+              };
+              datas.push(insert);
+            }
+            await db.option_master.bulkCreate(datas, { transaction: t });
+          } else if (typeof body.add[i] == "string") {
+            // for (let j = 0; j < body.add[i].length; j++) {
+            await db.option_master.create(
+              {
+                option_name: body.add[i],
+                select_id: data.id,
+              },
+              { transaction: t }
+            );
           }
-          await db.option_master.bulkCreate(datas, { transaction: t });
         }
         await t.commit();
-        return { data, datas };
+        return { data };
       }
     }
   } catch (err) {
