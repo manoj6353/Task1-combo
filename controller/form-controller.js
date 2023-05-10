@@ -12,12 +12,24 @@ const formcreate = async (req, res) => {
 const save = async (req, res) => {
   try {
     const { body } = req;
-    console.log("------------", body);
-    // const data = await form.insert(body);
-    // res.send(data);
+    const data = await form.insert(body);
+    if (data.error) {
+      res.json(data.error.details);
+    } else {
+      res.redirect("/show");
+    }
   } catch (err) {
     res.json(err);
   }
 };
 
-module.exports = { formcreate, save };
+const show = async (req, res) => {
+  try {
+    const data = await form.showall();
+    res.render("show", { data });
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+module.exports = { formcreate, save, show };

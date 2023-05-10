@@ -12,7 +12,7 @@
       <form action="/save" method="POST">
         <div class="" id="main">
           <div class="dc">
-            <input type="text" value="untitled value" name="select" />
+            <input type="text" placeholder="Enter title name" name="select" />
             <select
               class="selection"
               name="combo"
@@ -26,7 +26,7 @@
             </select>
           </div>
           <div id="addbutton">
-            <input type="button" value="add" onclick="add(this)" />
+            <input type="button" value="add" class="1" onclick="add(this)" />
           </div>
           <div id="add" class="add"></div>
         </div>
@@ -41,33 +41,38 @@
     </div>
   </body>
   <script>
+    let ids = 1;
     function loading() {
       let adds = document.getElementById("add");
       let selection = document.getElementById("selection");
       selection.setAttribute("id", `selection${ids}`);
       adds.setAttribute("id", `add${ids}`);
     }
-    let ids = 1;
     function generate(idget) {
       let data;
       let value;
       data = idget.parentNode.parentNode.childNodes[5];
       value = idget.parentNode.parentNode.childNodes[1].childNodes[3].value;
+      let classes =
+        idget.parentNode.parentNode.childNodes[3].childNodes[1].classList[0];
       let add = document.getElementById(`add${ids}`);
       if (value != "select") {
         data.innerHTML = `<div><input type="${value}" name="${value}" id="${value}" disabled>
-        <input type="text" value="option" name="${data.id}"><a onclick="remove(this)">Remove</a></div>`;
+          <input type="text" placeholder="Enter option name" name="add[${classes}]"><a onclick="remove(this)">Remove</a></div>`;
       }
     }
     function add(idget) {
       let data;
       let value;
+      idget.classList.add(ids);
       data = idget.parentNode.parentNode.childNodes[5];
       value = idget.parentNode.parentNode.childNodes[1].childNodes[3].value;
       let add = document.getElementById(`add${ids}`);
+      let classes = idget.classList[0];
+      console.log(classes);
       if (value != "select") {
         let html = `<div><input type="${value}" name="${value}" id="${value}" disabled>
-        <input type="text" value="option" name="${data.id}"><a onclick="remove(this)">Remove</a></div>`;
+        <input type="text" placeholder="Enter option name" name="add[${classes}]"><a onclick="remove(this)">Remove</a></div>`;
         data.insertAdjacentHTML("beforeend", html);
       }
     }
@@ -76,11 +81,11 @@
     }
 
     function myFunction() {
-      let id = 1;
+      ids++;
       let add = document.getElementById("showdata");
       add.innerHTML += `<div class="" id="main">
           <div class="dc">
-            <input type="text" value="untitled value" name="select" />
+            <input type="text" placeholder="Enter title name" name="select" />
             <select
               class="selection"
               name="combo"
@@ -94,13 +99,13 @@
             </select>
           </div>
           <div id="addbutton">
-            <input type="button" value="add" onclick="add(this)" />
+            <input type="button" value="add" class="${ids}" onclick="add(this)" />
           </div>
           <div id="add" class="add"></div>
         </div>`;
       let adds = document.getElementById("add");
       let selection = document.getElementById("selection");
-      ids++;
+
       adds.setAttribute("id", `add${ids}`);
       selection.setAttribute("id", `selection${ids}`);
     }
