@@ -8,37 +8,50 @@
     <link rel="stylesheet" href="/css/form.css" />
   </head>
   <body onload="loading()">
-    <div class="container">
-      <form action="/save" method="POST">
-        <div class="" id="main">
-          <div class="dc">
-            <input type="text" placeholder="Enter title name" name="select" />
-            <select
-              class="selection"
-              name="combo"
-              id="selection"
-              onclick="generate(this)"
-            >
-              <option value="select">Select</option>
-              <option value="radio">Radio</option>
-              <option value="dropdown">Dropdown</option>
-              <option value="checkbox">Checkbox</option>
-            </select>
+    <center>
+      <div class="container">
+        <form action="/save" method="POST" id="regfrm">
+          <div class="email">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter Email"
+              onchange="fetchmail(this)"
+            />
           </div>
-          <div id="addbutton">
-            <input type="button" value="add" class="1" onclick="add(this)" />
+          <div class="emailerror">
+            <span id="emailerror"></span>
           </div>
-          <div id="add" class="add"></div>
-        </div>
-        <div id="showdata"></div>
-        <div class="submit">
-          <input type="submit" value="submit" />
-        </div>
-      </form>
-    </div>
-    <div id="inner">
-      <input type="button" value="+" onclick="myFunction()" />
-    </div>
+          <div class="" id="main">
+            <div class="dc">
+              <input type="text" placeholder="Enter title name" name="select" />
+              <select
+                class="selection"
+                name="combo"
+                id="selection"
+                onclick="generate(this)"
+              >
+                <option value="radio">Radio</option>
+                <option value="dropdown">Dropdown</option>
+                <option value="checkbox">Checkbox</option>
+              </select>
+            </div>
+            <div id="addbutton">
+              <input type="button" value="add" class="1" onclick="add(this)" />
+            </div>
+            <div id="add" class="add"></div>
+          </div>
+          <div id="showdata"></div>
+          <div class="submit">
+            <input type="button" value="submit" onclick="sub()" />
+          </div>
+        </form>
+      </div>
+      <div id="inner">
+        <input type="button" value="generate" onclick="myFunction()" />
+      </div>
+    </center>
   </body>
   <script>
     let ids = 1;
@@ -47,6 +60,7 @@
       let selection = document.getElementById("selection");
       selection.setAttribute("id", `selection${ids}`);
       adds.setAttribute("id", `add${ids}`);
+      selection.onclick();
     }
     function generate(idget) {
       let data;
@@ -56,10 +70,12 @@
       let classes =
         idget.parentNode.parentNode.childNodes[3].childNodes[1].classList[0];
       let add = document.getElementById(`add${ids}`);
-      if (value != "select") {
-        data.innerHTML = `<div><input type="${value}" name="${value}" id="${value}" disabled>
-          <input type="text" placeholder="Enter option name" name="add[${classes}]"><a onclick="remove(this)">Remove</a></div>`;
+      let html = `<div>`;
+      if (value != "dropdown") {
+        html += `<input type="${value}" name="${value}" id="${value}" disabled>`;
       }
+      html += `<input type="text" placeholder="Enter option name" name="add[${classes}]"><a onclick="remove(this)">Remove</a></div>`;
+      data.innerHTML = html;
     }
     function add(idget) {
       let data;
@@ -69,12 +85,12 @@
       value = idget.parentNode.parentNode.childNodes[1].childNodes[3].value;
       let add = document.getElementById(`add${ids}`);
       let classes = idget.classList[0];
-      console.log(classes);
-      if (value != "select") {
-        let html = `<div><input type="${value}" name="${value}" id="${value}" disabled>
-        <input type="text" placeholder="Enter option name" name="add[${classes}]"><a onclick="remove(this)">Remove</a></div>`;
-        data.insertAdjacentHTML("beforeend", html);
+      let html = `<div>`;
+      if (value != "dropdown") {
+        html += `<input type="${value}" name="${value}" id="${value}" disabled>`;
       }
+      html += `<input type="text" placeholder="Enter option name" name="add[${classes}]"><a onclick="remove(this)">Remove</a></div>`;
+      data.insertAdjacentHTML("beforeend", html);
     }
     function remove(current) {
       current.parentNode.innerHTML = "";
@@ -84,30 +100,94 @@
       ids++;
       let add = document.getElementById("showdata");
       add.innerHTML += `<div class="" id="main">
-          <div class="dc">
-            <input type="text" placeholder="Enter title name" name="select" />
-            <select
-              class="selection"
-              name="combo"
-              id="selection"
-              onclick="generate(this)"
-            >
-              <option value="select">Select</option>
-              <option value="radio">Radio</option>
-              <option value="dropdown">Dropdown</option>
-              <option value="checkbox">Checkbox</option>
-            </select>
-          </div>
-          <div id="addbutton">
-            <input type="button" value="add" class="${ids}" onclick="add(this)" />
-          </div>
-          <div id="add" class="add"></div>
-        </div>`;
+            <div class="dc">
+              <input type="text" placeholder="Enter title name" name="select" />
+              <select
+                class="selection"
+                name="combo"
+                id="selection"
+                onclick="generate(this)"
+              >
+                <option value="radio">Radio</option>
+                <option value="dropdown">Dropdown</option>
+                <option value="checkbox">Checkbox</option>
+              </select>
+            </div>
+            <div id="addbutton">
+              <input type="button" value="add" class="${ids}" onclick="add(this)" />
+            </div>
+            <div id="add" class="add"></div>
+            <div id="remove">
+        <input type="button" value="Remove" onclick="divremove(this)" />
+      </div>
+          </div>`;
       let adds = document.getElementById("add");
       let selection = document.getElementById("selection");
-
+      selection.onclick();
       adds.setAttribute("id", `add${ids}`);
       selection.setAttribute("id", `selection${ids}`);
+    }
+    function divremove(remove) {
+      remove.parentNode.parentNode.remove();
+    }
+
+    function data(disable) {
+      try {
+        let data = document.querySelectorAll("#main");
+        for (let i of data) {
+          let tags = i.getElementsByTagName("*");
+          for (let tag of tags) {
+            tag.disabled = true;
+          }
+        }
+        let desa = disable.getElementsByTagName("*");
+        for (let en of desa) {
+          en.disabled = false;
+        }
+        let radio = document.querySelectorAll("#radio");
+        for (let i of radio) {
+          i.disabled = true;
+        }
+        let checkbox = document.querySelectorAll("#checkbox");
+        for (let i of checkbox) {
+          i.disabled = true;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    function sub() {
+      try {
+        let data = document.querySelectorAll("#main");
+        for (let i of data) {
+          let tags = i.getElementsByTagName("*");
+          for (let tag of tags) {
+            tag.disabled = false;
+          }
+        }
+        let radio = document.querySelectorAll("#radio");
+        for (let i of radio) {
+          i.disabled = true;
+        }
+        let checkbox = document.querySelectorAll("#checkbox");
+        for (let i of checkbox) {
+          i.disabled = true;
+        }
+        document.getElementById("regfrm").submit();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    async function fetchmail(mail) {
+      try {
+        let email = mail.value;
+        const result = await fetch(`email?mail=${email}`);
+        const data = await result.json();
+        let emailerror = document.getElementById("emailerror");
+        emailerror.innerHTML = data;
+      } catch (err) {
+        console.log(err);
+      }
     }
   </script>
 </html>

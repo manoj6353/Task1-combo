@@ -12,6 +12,9 @@ module.exports = {
       select_name: {
         type: Sequelize.STRING,
       },
+      email: {
+        type: Sequelize.STRING,
+      },
       type: {
         type: Sequelize.STRING,
       },

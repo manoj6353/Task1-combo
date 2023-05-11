@@ -3,48 +3,73 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{
-  text-align:center
+body {
+  text-align: center;
 }
-input{
+input {
   border: 0;
   font-size: 20px;
 }
-form{
+form {
   margin-top: 30px;
 }
-.dc{
+.dc {
   display: contents;
 }
-.container{
-  width : 1170px
+.container {
+  width: 1170px;
 }
-.selection{
+.selection {
   width: 10rem;
   height: 2rem;
   border: hidden;
   padding: 8px;
   border-radius: 10px;
 }
-.add
-{
+.add {
   display: flex;
   flex-direction: column;
 }
-.submit{
+.submit {
   margin-top: 15px;
 }
-.submit input{
+.submit input {
   padding: 8px;
   border-radius: 10px;
 }
 
-#addbutton input{
+#addbutton input {
   margin-top: 20px;
   padding: 8px;
   border-radius: 10px;
   margin-bottom: 20px;
 }
-#showdata{
+#showdata {
   margin-top: 25px;
+}
+#inner input {
+  margin-top: 20px;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+#remove input {
+  margin-top: 20px;
+  padding: 8px;
+  border-radius: 10px;
+}
+#main {
+  border: 1px solid black;
+  width: fit-content;
+  text-align: end;
+  margin-top: inherit;
+  padding: 15px;
+  border-radius: 20px;
+}
+#emailerror {
+  color: red;
+}
+.email {
+  margin-bottom: 20px;
 }
